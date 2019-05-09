@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Xml;
 
 namespace CSharp8Demo2
 {
@@ -6,9 +8,79 @@ namespace CSharp8Demo2
     {
         static void Main(string[] args)
         {
+            PerformRangesDemo();
             PerformRecursivePattersDemo();
+            PeformUsingDemo();
             // SHOW Conditional Breakpoints 
             // SHOW EDITING Project file 
+        }
+
+        private static void PeformUsingDemo()
+        {
+            // === Example #1
+
+            var filename = @"c:\data\somefile.txt";
+            var filenameXml = @"c:\data\somefile.xml";
+            // Pre C# 8.0
+            using (var reader = new StreamReader(filename))
+            {
+                var contents = reader.ReadToEnd();
+                Console.WriteLine($"Read {contents.Length} characters from file.");
+            }
+
+            // 8.0 approach 
+            using var reader2 = new StreamReader(filename);
+            var contents2 = reader2.ReadToEnd();
+            Console.WriteLine($"Read {contents2.Length} characters from file.");
+
+            // === Example #2
+
+            // Pre C# 8
+            using (var reader3 = new StreamReader(filename))
+            using (var reader4 = XmlReader.Create(filenameXml))
+            {
+                // process the files
+            }
+
+            // C# 8
+            using var reader5 = new StreamReader(filename);
+            using var reader6 = XmlReader.Create(filenameXml);
+
+        }
+
+        private static void PerformRangesDemo()
+        {
+            // From: https://www.dotnetcurry.com/csharp/1489/csharp-8-visual-studio-2019
+
+            // C# 8.0 introduces new syntax for expressing a range of values.
+            Range range = 1..5;
+
+            //The starting index of a range is inclusive, and the ending index is exclusive.Alternatively, the ending can be specified as an offset from the end:
+            range = 1..^1;  // 1-2
+
+            //The new type can be used as an indexer for arrays.Both ranges specified above will give the same result when used with the following snippet of code:
+            var array = new[] { 0, 1, 2, 3, 4, 5 };
+            var subArray = array[range]; // = { 1, 2, 3, 4 }
+
+            // The new syntax can also be used to define:
+            // (a) An open-ended range from the beginning to a specific index:
+            subArray = array[..^1]; // = { 0, 1, 2, 3, 4 }
+
+            // (b) An open-ended range from a specific index to the end:
+            subArray = array[1..]; // = { 1, 2, 3, 4, 5 }
+
+            // (c) An index of a single item specified as an offset from the end.
+            var item = array[^1]; // = 5
+
+            // The use of ranges and indices is not limited to arrays. They can also be used with the Span<T> type (you can read more about Span<T> in my DNC Magazine article C# 7.1, 7.2 and 7.3 - New Features):
+            array = new[] { 0, 1, 2, 3, 4, 5 };
+            var span = array.AsSpan(1, 4); // = { 1, 2, 3, 4 }
+
+            //var subSpan = span[1..^1]; // = { 2, 3 }
+
+            //Although that’s the full extent to which the Range type can be used with existing types in .NET Core 3.0 Preview 2, there are plans to provide overloads with Range-typed parameters for other methods as well, e.g.:
+            //subSpan = span.Slice(range);
+            //var substring = "range"[range];
         }
 
         private static void PerformRecursivePattersDemo()
