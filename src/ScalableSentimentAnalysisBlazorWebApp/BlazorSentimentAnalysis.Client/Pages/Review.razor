@@ -1,0 +1,14 @@
+﻿@page "/"
+@inject HttpClient Http
+@inherits Calculator
+
+<h2>Live Sentiment</h2>
+
+<p><textarea oninput=@UpdateScoreAsync cols="45" placeholder="Type any text like a short product review"></textarea></p>
+
+<HappinessScale Value=@CurrentHappiness /><br />
+
+<span>Hits:@Count</span><br />
+<span>Average:@GetAverage()</span><br />
+<span>Min:@Min</span><br />
+<span>Max:@Max</span><br />
