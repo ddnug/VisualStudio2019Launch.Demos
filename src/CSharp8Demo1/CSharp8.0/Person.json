@@ -1,0 +1,27 @@
+[
+  {
+    "FirstName": "Tracey",
+    "MiddleName": "Jaron",
+    "LastName": "Downer",
+    "Adresses": [
+      {
+        "CivicNumber": 1200,
+        "Street": "St-Martin",
+        "City": "Laval"
+      }
+    ]
+  },
+  {
+    "FirstName": "Marisa",
+    "LastName": "Waters",
+    "BirthDate": "1975-05-20T00:00:00.000Z",
+    "Adresses": [
+      {
+        "CivicNumber": 440,
+        "Street": "Armand-Frappier",
+        "City": "Laval"
+      }
+    ],
+    "Active": true
+  }
+]
