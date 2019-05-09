@@ -27,6 +27,11 @@ namespace CSharp8._0
     }
 
 
+    /// <summary>
+    /// C# 8 demo to highlight 
+    /// (a) nullable reference types
+    /// (b) Async Streams - C# already has support for iterators and asynchronous methods. In C# 8.0, the two are combined into asynchronous streams. 
+    /// </summary>
     class Program
     {
         static void Main(string[] args)
