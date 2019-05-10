@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
-//#nullable enable
+#nullable enable
 
 namespace CSharp8._0
 {
@@ -10,7 +10,7 @@ namespace CSharp8._0
     public class Person
     {
         public string FirstName { get; set; }
-        public string MiddleName { get; set; }
+        public string? MiddleName { get; set; }
         public string LastName { get; set; }
 
         public Person(string firstName, string lastName)
@@ -55,7 +55,9 @@ namespace CSharp8._0
 
         static string GetName(Person p)
         {
-            return $"{p.FirstName} {p.MiddleName[0]}. {p.LastName}";
+            return (p.MiddleName != null)
+                ? $"{p.FirstName} {p.MiddleName[0]}. {p.LastName}"
+                : $"{p.FirstName} {p.LastName}";
         }
 
         #region async
